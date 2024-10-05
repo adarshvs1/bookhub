@@ -64,7 +64,11 @@ urlpatterns = [
 
     #wishlist
 
-    path('wishlist/summary/',views.MyCartview.as_view(),name='my-cart')
+    path('wishlist/summary/',views.MyCartview.as_view(),name='my-cart'),
+
+    #wishlist -delete
+
+    path('wishlist/items/<int:pk>/remove/',views.WishlistItemDeleteView.as_view(),name='cartitem-delete')
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

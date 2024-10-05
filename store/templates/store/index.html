@@ -48,7 +48,7 @@
             </svg>
         </div>
         <h1 class="text-3xl my-5">{{b.title}}</h1>
-        <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, incidunt!</p>
+        <p class="mb-5"> {{b.author}}</p>
         <h2 class="font-semibold mb-5">₹{{b.price}}</h2>
         <a href="{%url 'book-detail' b.id%}">
         <button class="p-2 px-6 bg-purple-500 text-white rounded-md hover:bg-purple-600">ViewMore</button>

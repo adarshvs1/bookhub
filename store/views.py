@@ -111,7 +111,7 @@ class BookListView(View):
 
     def get(self,request,*args,**kwargs):
 
-        qs=request.user.books.all()
+        qs=request.user.books.all() #logged user added books
 
         return render(request,'store/mybooks.html',{'books':qs})
     
@@ -156,13 +156,30 @@ class AddToWishListView(View):
     
 #cart
 
+from django.db.models import Sum  #is used to see tha total amount of your cart items
+
 class MyCartview(View):
 
     def get(self,request,*args,**kwargs):
 
         qs=request.user.basket.basket_items.filter(is_order_placed=False)  #user >cart > cartitems
 
-        return render(request,'cart_summary.html',{'cartitems':qs})
+        total=request.user.basket.basket_items.filter(is_order_placed=False).values('book_object__price').aggregate(total= Sum('book_object__price')).get('total')
+
+        return render(request,'store/cart_summary.html',{'cartitems':qs, "total":total})
+
+
+#wishlist - delete 
+
+class WishlistItemDeleteView(View):
+
+    def get(self,request,*args,**kwargs):
+
+        id=kwargs.get('pk')
+
+        WishListItems.objects.get(id=id).delete()
+
+        return redirect('my-cart')
 
         
 
