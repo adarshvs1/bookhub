@@ -25,6 +25,7 @@
     <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
       <div class="rounded-lg md:w-2/3">
+{%if cartitems%}
        {%for wi in cartitems%}
 
        <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
@@ -67,11 +68,14 @@
             
           </div>
         </div>
-        <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+        <a href="{%url 'book-checkout'%}" class="btn  mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</a>
       </div>
     </div>
   </div>
 </body>
+{%else%}
+<h1>your cart is empty</h1>
+{%endif%}
 
 
 {%endblock%}

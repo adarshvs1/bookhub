@@ -39,7 +39,7 @@ class Book(models.Model):
 
     files=models.FileField(null=True,upload_to='books')
 
-    published_date=models.DateField()
+    published_date=models.CharField(max_length=200,null=True)
 
     created_date=models.DateTimeField(auto_now_add=True)
 
@@ -47,8 +47,14 @@ class Book(models.Model):
 
     is_active=models.BooleanField(default=True)
 
+
+    
+    
+
     def __str__(self) -> str:
         return self.title
+    
+
 
 
 class WishList(models.Model):
@@ -92,6 +98,8 @@ class OrderSummary(models.Model):
 
     is_active=models.BooleanField(default=True)
 
+    total=models.FloatField(null=True)
+
 
 from django.db.models.signals import post_save  
 
@@ -114,6 +122,29 @@ def create_basket(sender,instance,created,*args,**kwargs): #automatically creati
         WishList.objects.create(owner=instance)
 
 post_save.connect(sender=User,receiver=create_basket)
+
+# reviews model
+
+from django.core.validators import MinValueValidator , MaxValueValidator
+
+class Reviews(models.Model):
+
+    book_object=models.ForeignKey(Book,on_delete=models.CASCADE,related_name='book_reviews')
+
+    owner=models.ForeignKey(User,on_delete=models.CASCADE)
+
+    comment=models.TextField()
+
+    rating=models.PositiveIntegerField(default=1,validators=[MinValueValidator(1),MaxValueValidator(5)])  #number 1 to 5
+
+    created_date=models.DateTimeField(auto_now_add=True)
+
+    updated_date=models.DateTimeField(auto_now=True)
+
+    is_active=models.BooleanField(default=True)
+
+
+
 
 
 

@@ -4,21 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+     <!-- tailwind cdn -->
+
+     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 
-    
-    <div class="container">
-        <h1>Register</h1>
-
-        <form action="" method="post">
+    <div class="flex flex-col justify-center font-[sans-serif] p-4">
+        <div class="max-w-md w-full mx-auto shadow-[0_2px_10px_-2px_rgba(195,169,50,0.5)] p-8 relative mt-12">
+          <div class="bg-white w-24 h-24 border-[10px] p-1.5 absolute left-0 right-0 mx-auto -top-12 rounded-full overflow-hidden">
+            <a href="javascript:void(0)"><img
+              src="https://readymadeui.com/readymadeui-short.svg" alt="logo" class='w-full inline-block' />
+            </a>
+          </div>
+  
+          <form class="mt-12" method="post">
             {%csrf_token%}
 
-            {{form}}
-            <button type="submit">Register</button>
-        </form>
-
-    </div>
+            <h3 class="text-xl font-bold text-orange-500 mb-8 text-center">Create free account</h3>
+            <div class="space-y-4">
+              <!-- <input name="name" type="text" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-4 focus:bg-transparent outline-orange-300 transition-all" placeholder="Enter name"/> -->
+              {{form.username}}
+              
+              <!--<input name="email" type="text" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-4 focus:bg-transparent outline-orange-300 transition-all" placeholder="Enter email" />!-->
+              {{form.email}}
+              
+              <!--<input name="password" type="password" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-4 focus:bg-transparent outline-orange-300 transition-all" placeholder="Enter password" />!-->
+              {{form.password1}}
+              
+              <!--<input name="cpassword" type="password" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-4 focus:bg-transparent outline-orange-300 transition-all" placeholder="Enter confirm password" />!-->
+              {{form.password2}}
+              
+            
+            </div>
+  
+            <div class="mt-8">
+              <button type="submit"  class="w-full py-4 px-8 text-sm tracking-wide font-semibold text-white bg-orange-500 hover:bg-orange-600 focus:outline-none">
+                Create an account
+              </button>
+            </div>
+            <p class="text-sm mt-8 text-center text-gray-800">Already have an account? <a href="{%url 'signin'%}" class="text-orange-500 font-semibold hover:underline ml-1">Login here</a></p>
+          </form>
+        </div>
+      </div>
+ 
     
 </body>
 </html>

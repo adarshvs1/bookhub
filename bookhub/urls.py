@@ -68,7 +68,24 @@ urlpatterns = [
 
     #wishlist -delete
 
-    path('wishlist/items/<int:pk>/remove/',views.WishlistItemDeleteView.as_view(),name='cartitem-delete')
+    path('wishlist/items/<int:pk>/remove/',views.WishlistItemDeleteView.as_view(),name='cartitem-delete'),
+
+    #checkout-view
+
+    path("checkout/",views.CheckOutView.as_view(),name="book-checkout"),
+
+    #payment-post method of razor pay
+
+    path("payment/verification/",views.PaymentVerificationView.as_view(),name="books-payment"),
+
+    #my-orders
+
+    path('order/summary/',views.MyPurchaseView.as_view(),name='order-summary'),
+
+    #review
+
+    path('book/<int:pk>/review/add/',views.ReviewCreateView.as_view(),name='review-add')
+
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

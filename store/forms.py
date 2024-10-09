@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import UserCreationForm
 
-from store.models import UserProfile ,Book
+from store.models import UserProfile ,Book,Reviews
 
 
 class SignupForm(UserCreationForm):  #registration
 
-    password1=forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password1=forms.CharField(widget=forms.PasswordInput(attrs={'class':"bg-gray-100 w-full text-sm text-gray-800 px-4 py-4 focus:bg-transparent outline-orange-300 transition-all", 'placeholder':"Enter password"}))
 
-    password2=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    password2=forms.CharField(widget=forms.TextInput(attrs={'class':'bg-gray-100 w-full text-sm text-gray-800 px-4 py-4 focus:bg-transparent outline-orange-300 transition-all','placeholder':'confirm password'}))
 
     class Meta:
 
@@ -21,9 +21,9 @@ class SignupForm(UserCreationForm):  #registration
 
         widgets={
 
-            'username':forms.TextInput(attrs={'class':'form-control'}),
+            'username':forms.TextInput(attrs={'class':"bg-gray-100 w-full text-sm text-gray-800 px-4 py-4 focus:bg-transparent outline-orange-300 transition-all","placeholder":"enter name"}),
 
-            'email':forms.EmailInput(attrs={'class':'form-control'})
+            'email':forms.EmailInput(attrs={'class':"bg-gray-100 w-full text-sm text-gray-800 px-4 py-4 focus:bg-transparent outline-orange-300 transition-all",'placeholder':'enter email'})
         }
 
 
@@ -31,9 +31,9 @@ class SignupForm(UserCreationForm):  #registration
 
 class SignInForm(forms.Form):
 
-    username=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    username=forms.CharField(widget=forms.TextInput(attrs={'class':"w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"}))
 
-    password=forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password=forms.CharField(widget=forms.PasswordInput(attrs={'class':"w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"}))
 
 
 #user profile
@@ -77,14 +77,24 @@ class BookForm(forms.ModelForm):
 
             'files':forms.FileInput(attrs={'class':'w-full p-3 border mb-3'}),
 
-            'published_date':forms.DateInput(attrs={'class':'form-control','type':'date'})
-
-            
-
-            
+            'published_date':forms.DateInput(attrs={'class':'form-control','type':'date'})           
 
         
             
         }
 
 
+# reviews
+
+class ReviewForm(forms.ModelForm):
+
+    class Meta:
+
+        model=Reviews
+
+        fields= ['comment','rating']
+
+        widgets={
+            "comment":forms.Textarea(attrs={"class":"form-control mb-2 ","rows":5}),
+            "rating":forms.NumberInput(attrs={"class":"form-control mb-2 "})
+        }
