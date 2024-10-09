@@ -47,6 +47,20 @@ class Book(models.Model):
 
     is_active=models.BooleanField(default=True)
 
+    category_choice=(
+        ("romance","romance"),
+        ("comic","comic"),
+        ("novel","novel"),
+        ("fantasy","fantasy"),
+        ("history","history"),
+        ("inspirational","inspirational"),
+        ("biography","biography"),
+        ("fairytale","fairytale"),
+        ("thriller","thriller")
+    )
+
+    category=models.CharField(max_length=200,choices=category_choice,default="novel")
+
 
     
     

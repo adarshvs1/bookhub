@@ -84,7 +84,15 @@ urlpatterns = [
 
     #review
 
-    path('book/<int:pk>/review/add/',views.ReviewCreateView.as_view(),name='review-add')
+    path('book/<int:pk>/review/add/',views.ReviewCreateView.as_view(),name='review-add'),
+
+    #drop down category
+
+    path("drop/down",views.DropDownView.as_view(),name="drop-down"),
+
+    #logout view
+
+    path("signout",views.SignOutView.as_view(),name="logout"),
 
 
 

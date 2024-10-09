@@ -98,3 +98,5 @@ class ReviewForm(forms.ModelForm):
             "comment":forms.Textarea(attrs={"class":"form-control mb-2 ","rows":5}),
             "rating":forms.NumberInput(attrs={"class":"form-control mb-2 "})
         }
+
+

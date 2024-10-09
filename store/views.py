@@ -7,7 +7,7 @@ from store.forms import SignupForm , SignInForm ,UserProfileForm , BookForm ,Rev
 
 from django.views.generic import View ,TemplateView , UpdateView ,CreateView,DetailView,ListView,FormView
 
-from django.contrib.auth import authenticate ,login  #security
+from django.contrib.auth import authenticate ,login,logout #security
 
 from store.models import UserProfile  , Book , WishListItems,OrderSummary , Reviews #model
 
@@ -365,9 +365,39 @@ class SearchView(ListView):
             result = None
 
         return result
+    
+#category dropdown
+
+class DropDownView(View):
+     
+     def get(self,request,*args,**kwargs):
+         
+         print("=========================",request)
+         form_no = request.GET["Category"]
+    
+         if form_no:
+
+            book_obj=Book.objects.filter(category=form_no)
+
+
+            print(book_obj)
+            
+    
+
+            return render(request,"store/drop_result.html",{"book":book_obj})
 
      
         
+
+
+
+class SignOutView(View):
+
+    def get(self,request,*args,**kwargs):
+
+        logout(request)
+
+        return redirect("signin")
 
 
 
