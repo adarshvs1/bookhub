@@ -9,9 +9,12 @@ from django.views.generic import View ,TemplateView , UpdateView ,CreateView,Det
 
 from django.contrib.auth import authenticate ,login,logout #security
 
-from store.models import UserProfile  , Book , WishListItems,OrderSummary , Reviews #model
+from store.models import UserProfile  , Book , WishListItems,OrderSummary , Reviews #model,
 
 from django.urls import reverse_lazy
+
+from django.utils.decorators import method_decorator
+from store.decorators import signin_required
 
 
 
@@ -65,7 +68,7 @@ class SignInView(View):
 
 
 #Index View
-# @method_decorator(signin_required,name='dispatch')
+@method_decorator(signin_required,name='dispatch')
 class IndexView(View):
 
     template_name='store/index.html'
@@ -77,7 +80,7 @@ class IndexView(View):
         return render(request,self.template_name,{'books':qs})
 
 #user profile update
-
+@method_decorator(signin_required,name='dispatch')
 class UserProfileUpdateView(UpdateView):
 
     model=UserProfile
@@ -90,25 +93,44 @@ class UserProfileUpdateView(UpdateView):
 
 
 #book create
+@method_decorator(signin_required,name='dispatch')
+class BookCreateView(View):
 
-class BookCreateView(CreateView):
+    def get(self,request,*args,**kwargs):
 
-    model=Book
+        form_instance=BookForm()
+        return render(request,"store/book_add.html",{"form":form_instance})
+    
+    def post(self,request,*args,**kwargs):
 
-    form_class=BookForm
+        form_instance=BookForm(request.POST,files=request.FILES)
 
-    template_name='store/book_add.html'
+        if form_instance.is_valid():
 
-    success_url=reverse_lazy('index')
+            form_instance.instance.owner=request.user
 
-    def form_valid(self,form): #before saving extra adding 
+            form_instance.save()
 
-        form.instance.owner=self.request.user
+            return redirect("index")
+        
+        return render(request,"store/book_add.html",{"form":form_instance})
 
-        return super().form_valid(form)
+    # model=Book
+
+    # form_class=BookForm
+
+    # template_name='store/book_add.html'
+
+    # success_url=reverse_lazy('index')
+
+    # def form_valid(self,form): #before saving extra adding 
+
+    #     form.instance.owner=self.request.user
+
+    #     return super().form_valid(form)
     
 #books list
-
+@method_decorator(signin_required,name='dispatch')
 class BookListView(View):
 
     def get(self,request,*args,**kwargs):
@@ -119,7 +141,7 @@ class BookListView(View):
     
 
 # book remove
-
+@method_decorator(signin_required,name='dispatch')
 class BookDeleteView(View):
 
     def get(self,request,*args,**kwargs):
@@ -131,7 +153,7 @@ class BookDeleteView(View):
         return redirect('mybooks')
     
 #book detail view
-
+@method_decorator(signin_required,name='dispatch')
 class BookDetailView(DetailView):
 
     def get(self,request,*args,**kwargs):
@@ -151,7 +173,7 @@ class BookDetailView(DetailView):
 
     
 #Add to wishlist View
-
+@method_decorator(signin_required,name='dispatch')
 class AddToWishListView(View):
 
     def get(self,request,*args,**kwargs):
@@ -169,7 +191,7 @@ class AddToWishListView(View):
 #cart
 
 from django.db.models import Sum  #is used to see tha total amount of your cart items
-
+@method_decorator(signin_required,name='dispatch')
 class MyCartview(View):
 
     def get(self,request,*args,**kwargs):
@@ -182,7 +204,7 @@ class MyCartview(View):
 
 
 #wishlist - delete 
-
+@method_decorator(signin_required,name='dispatch')
 class WishlistItemDeleteView(View):
 
     def get(self,request,*args,**kwargs):
@@ -200,7 +222,7 @@ KEY_SECRET='qNa5Hxpai2N3y0sDnokqRube'
 KEY_ID='rzp_test_CAcdb9Nz43lQUs'
 
 import razorpay #payment
-
+@method_decorator(signin_required,name='dispatch')
 class CheckOutView(View):
 
     def get(self,request,*args,**kwargs):
@@ -265,6 +287,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator #this decrtr is used to avoid csrf token checking
 
 @method_decorator(csrf_exempt,name='dispatch')
+@method_decorator(signin_required,name='dispatch')
 class PaymentVerificationView(View):
 
     def post(self,request,*args,**kwargs):
@@ -301,7 +324,7 @@ class PaymentVerificationView(View):
 
 
 #purchased
-
+@method_decorator(signin_required,name='dispatch')
 class MyPurchaseView(View):
 
     model=OrderSummary
@@ -318,7 +341,7 @@ class MyPurchaseView(View):
 # reviews
 
 #url :lh:8000/book/<int:pk>/review/add
-
+@method_decorator(signin_required,name='dispatch')
 class ReviewCreateView(FormView): 
 
     template_name='store/review.html'
@@ -349,7 +372,7 @@ class ReviewCreateView(FormView):
         
 
 #search -view
-
+@method_decorator(signin_required,name='dispatch')
 class SearchView(ListView):
     model = Book
     template_name = 'store/search.html'
@@ -367,7 +390,7 @@ class SearchView(ListView):
         return result
     
 #category dropdown
-
+@method_decorator(signin_required,name='dispatch')
 class DropDownView(View):
      
      def get(self,request,*args,**kwargs):
@@ -390,7 +413,8 @@ class DropDownView(View):
         
 
 
-
+#signout
+@method_decorator(signin_required,name='dispatch')
 class SignOutView(View):
 
     def get(self,request,*args,**kwargs):

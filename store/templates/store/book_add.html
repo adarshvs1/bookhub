@@ -1,15 +1,75 @@
 {%extends 'store/base.html'%}
 
+
 {%block main_block%}
 
+<div class="flex flex-wrap text-slate-800">
+    <div class="relative hidden h-screen select-none flex-col justify-center bg-slate-600 text-center md:flex md:w-1/3 h-auto">
+      <div class="mx-auto py-16 px-8 text-white">
+        <p class="my-6 text-4xl font-bold leading-10">Reading is not <span class="truncate border-b-8 border-yellow-400 font-bold text-yellow-400">Optional</span></p>
+        <p class="mb-4 text-lg font-medium">Write your  own life</p>
+      </div>
+    </div>
+    <div class="flex w-full flex-col md:w-2/3">
+      <div class="flex justify-center pt-12 md:justify-start md:pl-12">
+        <a href="#" class="text-2xl font-bold text-gray-800 bg-yellow-400 px-2 py-1">BOOKHUB  </a>
+      </div>
+      <div class="my-auto flex max-w-screen-md flex-col justify-center px-6 md:pl-12 pt-8 sm:pt-0 md:justify-start">
+        <p class="text-center text-3xl font-bold md:text-left">Sell Your Books Here</p>
+  
+        <form class="flex flex-col items-stretch pt-3 pb-8 md:pt-8" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
 
+          {{form}}
+          <!-- <div class="grid gap-x-4 gap-y-3 sm:grid-cols-2">
+            <label class="block" for="name">
+              <p class="mb-1 mt-2 text-sm text-gray-600">Title</p>
+              {{form.title}}
+            </label>
+            <label class="block" for="phone">
+              <p class="mb-1 mt-2 text-sm text-gray-600">Author</p>
+              {{form.author}}
+            </label>
+            <label class="block sm:col-span-2" for="message">
+                <p class="mb-1 mt-2 text-sm text-gray-600">Description</p>
+                {{form.description}}
+              </label>
+            <label class="block" >
+              <p class="mb-1 mt-2 text-sm text-gray-600">category</p>
+              <select class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2" type="text" name="category" id="category" placeholder="Enter your name">
+                {%for c in category_choice%}
+                <option value="{{c}}">{{c}}</option>
+                {%endfor%}
 
-<form action="" method="post" enctype="multipart/form-data" class="border w-1/2 mx-auto p-5 " >
-
-    {%csrf_token%}
-    {{form}}
-    <button type="submit" class="btn btn-primary btn-lg mt-3">Add</button>
-    </form>
+              </select>
+            </label>
+            <label class="block" for="address">
+              <p class="mb-1 mt-2 text-sm text-gray-600">Price</p>
+              {{form.price}}
+            </label>
+            <label class="block" for="address">
+                <p class="mb-1 mt-2 text-sm text-gray-600">published_date</p>
+                {{form.published_date}}
+            </label>
+            <label class="block" for="address">
+                <p class="mb-1 mt-2 text-sm text-gray-600">thumbnail</p>
+                {{form.thumbnail}}
+              </label>
+              <label class="block" for="address">
+                <p class="mb-1 mt-2 text-sm text-gray-600">files</p>
+                {{form.files}}
+              </label> -->
+            
+          <!-- </div> -->
+          <!-- <div class="block">
+            <label class="inline-block text-sm text-gray-500" for=""> By clicking submit you agree to the <a class="underline" href="#">Terms and Conditions</a></label>
+          </div> -->
+          <button type="submit" class=" w-4/4 mt-6  rounded-full bg-yellow-400 px-4 py-2 text-center text-base font-semibold font- shadow-md outline-none ring-yellow-500 ring-offset-2 transition hover:bg-yellow-400 focus:ring-2 ">Submit</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
 
 
 

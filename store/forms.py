@@ -55,7 +55,9 @@ class UserProfileForm(forms.ModelForm):
 
 
 
-class BookForm(forms.ModelForm):  
+class BookForm(forms.ModelForm): 
+
+   
 
     class Meta:
 
@@ -65,19 +67,22 @@ class BookForm(forms.ModelForm):
 
         widgets={
 
-            'title':forms.TextInput(attrs={'class':'w-full border p-2'}),
+            'title':forms.TextInput(attrs={'class':'w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2'}),
 
-            'author':forms.TextInput(attrs={'class':'w-full border p-2'}),
+            'author':forms.TextInput(attrs={'class':'w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2'}),
 
-            'description':forms.Textarea(attrs={'class':'w-full border p-2 mb-3','rows':5}),
+            'description':forms.Textarea(attrs={'class':'w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2 h-12'}),
 
-            'thumbnail':forms.FileInput(attrs={'class':'w-full p-3 border mb-3 mt-3'}),
+            'thumbnail':forms.FileInput(attrs={'class':'w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2'}),
 
-            'price':forms.NumberInput(attrs={'class':'w-full p-3 border mb-3'}),
+            'price':forms.NumberInput(attrs={'class':'w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2'}),
 
-            'files':forms.FileInput(attrs={'class':'w-full p-3 border mb-3'}),
+            'files':forms.FileInput(attrs={'class':'w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2'}),
 
-            'published_date':forms.DateInput(attrs={'class':'form-control','type':'date'})           
+            'published_date':forms.DateInput(attrs={'class':'w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2'}),
+
+            
+            "category":forms.Select(attrs={"class":"w-full rounded-md border bg-white py-2 px-2 outline-none ring-yellow-500 focus:ring-2"}) 
 
         
             

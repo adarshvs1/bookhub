@@ -336,3 +336,21 @@
     
 </body>
 </html>
+
+
+{%extends 'store/base.html'%}
+
+{%block main_block%}
+
+=================== hshs ===========================================
+
+<form action="" method="post" enctype="multipart/form-data" class="border w-1/2 mx-auto p-5 " >
+
+    {%csrf_token%}
+    {{form}}
+    <button type="submit" class="btn btn-primary btn-lg mt-3">Add</button>
+    </form>
+
+
+
+{%endblock%}
